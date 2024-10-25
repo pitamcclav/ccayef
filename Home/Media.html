@@ -1,0 +1,85 @@
+﻿
+
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs">
+ 
+</nav>
+
+<!-- Gallery Section -->
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-header mb-4" data-aos="fade-up">
+            <h3>Gallery</h3>
+            <p>Explore moments captured from our various events and activities.</p>
+        </div>
+        <!-- Swiper container -->
+        <div class="swiper" data-aos="fade-up">
+            <div class="swiper-wrapper">
+                @foreach (var item in Model)
+                {
+                    <div class="swiper-slide">
+                        <div class="gallery-item">
+                            <img src="images/gallery/@item" class="img-fluid rounded" alt="Gallery Image">
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- Add Navigation -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- Videos Section -->
+<section class="videos-section py-5 bg-light">
+    <div class="container">
+        <div class="section-header mb-4" data-aos="fade-up">
+            <h3>Videos</h3>
+            <p>Watch our latest videos showcasing our initiatives and impact.</p>
+        </div>
+
+        <div class="row">
+            <!-- Example video items -->
+            <div class="col-lg-6 mb-4" data-aos="fade-up">
+                <div class="embed-responsive embed-responsive-16by9">
+                     
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/D3ionqyQ3q4?si=k6en_yqDeLpwpxdV" title="YouTube video player" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p class="mt-2">CCAYEF empowered youth</p>
+            </div>
+            <div class="col-lg-6 mb-4" data-aos="fade-up">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/BYMlwiIou5c?si=8gpa0657sZQwT1_c" 
+                    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="embed-responsive-item"></iframe>
+                </div>
+                <p class="mt-2">East Africa Community Philanthropy Stories: Namusisi Ruth-Child Care & Youth Empowerment Foundation</p>
+            </div>
+            <div class="col-lg-6 mb-4" data-aos="fade-up">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/twNg7kLZHPA?si=bjYJs_v4RR4OVFO3" title="YouTube video player" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p class="mt-2">CCAYEF graduation poem</p>
+            </div>
+            <div class="col-lg-6 mb-4" data-aos="fade-up">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/HlGlze22_Ys?si=86McBIspCgdaNbkY" title="YouTube video player" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p class="mt-2">ccayef graduation 2017 speech</p>
+            </div>
+            <!-- Add more video items as needed -->
+        </div>
+    </div>
+</section>

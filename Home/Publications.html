@@ -1,0 +1,59 @@
+﻿<div class="breadcrumbs">
+</div>
+<section>
+    <div class="container">
+        <div class="reports">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h3>Reports</h3>
+                </div>
+                <div class="row" data-aos="fade-up">
+
+                    @foreach (var report in Model.Reports)
+                    {
+                        <div class="col-lg-4">
+                            <div class="card">
+                                 @* <img src="images/bg_1.jpg" alt="Report 1" /> *@
+                                <div class="card-body">
+                                    <h4>@report.Title</h4>
+                                    <p>@report.Description</p>
+                                    <a href="@report.Link" class="btn btn-primary">Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sec-one">
+    <div class="container">
+        <div class="publications">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h3>Publications</h3>
+                </div>
+                <div class="row" data-aos="fade-up">
+                    @foreach (var publication in Model.Publications)
+                    {
+                        <div class="col-lg-4">
+                            <div class="card">
+                                @* <img src="images/bg_1.jpg" alt="Report 1" /> *@
+                                <div class="card-body">
+                                    <h4>@publication.Title</h4>
+                                    <p>@publication.Description</p>
+                                    <a href="@publication.Link" class="btn btn-primary">Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
