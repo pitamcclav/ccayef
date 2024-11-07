@@ -60,9 +60,9 @@ const pages = {
         path: 'Services/YouthEmpowerment.html',
         title: 'Youth Empowerment'
     },
-    'WASHandClimaChange': {
+    'WASHandClimateChange': {
         id: 'WASHandClimaChange',
-        path: 'Services/WASHandClimaChange.html',
+        path: 'Services/WASHandClimateChange.html',
         title: 'WASH and Climate Change'
     },
 };
@@ -242,35 +242,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(style);
-    
-    // Set up navigation click handlers
-    document.querySelectorAll('.more').forEach(link => {
-        link.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('[data-page]');
+        if (link) {
             e.preventDefault();
             const pageId = link.getAttribute('data-page');
-            
-            // Optional: Console log to confirm which element was clicked
-            console.log(`Clicked link with pageId: ${pageId}`);
-            
-            if (pageId) {
-                loadServicesPage(pageId);
-            }
-        });
-    });
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const pageId = link.getAttribute('data-page');
-            
-            // Optional: Console log to confirm which element was clicked
-            console.log(`Clicked link with pageId: ${pageId}`);
-            
             if (pageId) {
                 loadPage(pageId);
             }
-        });
+        }
     });
-
     
 
     // Handle browser back/forward
