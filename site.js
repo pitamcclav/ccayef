@@ -224,7 +224,7 @@ function loadImages(){
     }
     if (galleryContainer.children.length > 0) return; // Prevent re-adding images
 
-    fetch('http://localhost:3000/images')
+    fetch('https://pitamcclav.github.io/ccayef/')
 
     .then(response => response.json())
     .then(images => {
