@@ -35,28 +35,28 @@ const pages = {
         path: 'Home/Contact.html',
         title: 'Contact'
     },
-    'EarlyChildhoodDev': {
-        id: 'EarlyChildhood',
+    'earlyChildhoodDev': {
+        id: 'earlyChildhood',
         path: 'Services/EarlyChildhoodDev.html',
         title: 'Early Childhood'
     },
-    'HealthServices': {
-        id: 'HealthServices',
+    'healthServices': {
+        id: 'healthServices',
         path: 'Services/HealthServices.html',
         title: 'Health Services'
     },
-    'TeenageMotherRehab': {
-        id: 'TeenageMotherRehab',
+    'teenageMotherRehab': {
+        id: 'teenageMotherRehab',
         path: 'Services/TeenageMotherRehab.html',
         title: 'Teenage Mother Rehabilitation'
     },
-    'VocationalTraining': {
-        id: 'VocationalTraining',
+    'vocationalTraining': {
+        id: 'vocationalTraining',
         path: 'Services/VocationalTraining.html',
         title: 'Vocational Training'
     },
-    'YouthEmpowerment': {
-        id: 'YouthEmpowerment',
+    'youthEmpowerment': {
+        id: 'youthEmpowerment',
         path: 'Services/YouthEmpowerment.html',
         title: 'Youth Empowerment'
     },
@@ -70,8 +70,11 @@ const pages = {
 // Function to load page content
 async function loadPage(pageId) {
     console.log('Loading page:', pageId);
-    const page = pages[pageId];
     
+    const page = pages[pageId];
+    console.log(page);
+
+    // If page is not found in the configuration, show an error
     if (!page) {
         console.error('Page not found:', pageId);
         document.getElementById('content').innerHTML = '<div class="container mt-5"><h1>Page Not Found</h1></div>';
@@ -79,44 +82,28 @@ async function loadPage(pageId) {
     }
 
     try {
-        // Show loading spinner
-        document.getElementById('content').innerHTML = `
-            <div class="container mt-5 text-center">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-        `;
-
-        // Make sure we're using the correct path
-        const safePath = page.path.startsWith('/') ? page.path.slice(1) : page.path;
-        const response = await fetch(safePath);
+        // Fetch the correct path based on configuration
+        const response = await fetch(page.path);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const content = await response.text();
-        
-        // Add fade effect
-        document.getElementById('content').style.opacity = '0';
-        
+
+        // Fade out content before updating
         setTimeout(() => {
             document.getElementById('content').innerHTML = content;
             document.getElementById('content').style.opacity = '1';
-            
+
             // Reinitialize plugins
             initializePlugins();
-            
         }, 200);
 
-        // Update active state in navigation
+        // Update active navigation and page title
         updateActiveNav(pageId);
-        
-        // Update page title and URL
         document.title = `CCAYEF - ${page.title}`;
-        history.pushState({page: pageId}, '', `#${pageId}`);
-
+        history.pushState({ page: pageId }, '', `#${pageId}`);
     } catch (error) {
         console.error('Error loading page:', error);
         document.getElementById('content').innerHTML = `
@@ -132,6 +119,57 @@ async function loadPage(pageId) {
     }
 }
 
+// Function to load services page content
+async function loadServicesPage(pageId) {
+    console.log('Loading page:', pageId);
+
+    const page = pages[pageId];
+    console.log(page);
+
+    // If page is not found in the configuration, show an error
+    if (!page) {
+        console.error('Page not found:', pageId);
+        document.getElementById('content').innerHTML = '<div class="container mt-5"><h1>Page Not Found</h1></div>';
+        return;
+    }
+
+    try {
+        // Fetch the correct path based on configuration
+        const response = await fetch(page.path);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const content = await response.text();
+
+        // Fade out content before updating
+        setTimeout(() => {
+            document.getElementById('content').innerHTML = content;
+            document.getElementById('content').style.opacity = '1';
+
+            // Reinitialize plugins
+            initializePlugins();
+        }, 200);
+
+        // Update active navigation and page title
+        // updateActiveNav(pageId);
+        document.title = `CCAYEF - ${page.title}`;
+        history.pushState({ page: pageId }, '', `#${pageId}`);
+    }
+    catch (error) {
+        console.error('Error loading page:', error);
+        document.getElementById('content').innerHTML = `
+            <div class="container mt-5">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Error Loading Page</h4>
+                    <p>Sorry, we couldn't load the requested page. Please try again later.</p>
+                    <hr>
+                    <p class="mb-0">Error details: ${error.message}</p>
+                </div>
+            </div>`;
+    }
+}
 // Update active navigation state
 function updateActiveNav(pageId) {
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -191,6 +229,7 @@ function initializePlugins() {
     }
 }
 
+
 // Initialize when document is ready
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded');
@@ -205,16 +244,35 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(style);
     
     // Set up navigation click handlers
+    document.querySelectorAll('.more').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageId = link.getAttribute('data-page');
+            
+            // Optional: Console log to confirm which element was clicked
+            console.log(`Clicked link with pageId: ${pageId}`);
+            
+            if (pageId) {
+                loadServicesPage(pageId);
+            }
+        });
+    });
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const pageId = link.getAttribute('data-page');
+            
+            // Optional: Console log to confirm which element was clicked
+            console.log(`Clicked link with pageId: ${pageId}`);
+            
             if (pageId) {
                 loadPage(pageId);
             }
         });
     });
+
     
+
     // Handle browser back/forward
     window.addEventListener('popstate', (e) => {
         const pageId = e.state?.page || 'home';
