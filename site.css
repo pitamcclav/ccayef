@@ -4,11 +4,16 @@
     --tertiary: #9b59b6;
     --background: #f9f9f9;
     --text: #333333;
-    --text-light: #666666;
+    --text-light: #595959;
     --gray-dark: #2c3e50;
     --font-default: 'Inter', sans-serif;
     --font-heading: 'Poppins', sans-serif;
     --transition: all 0.3s ease;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1400px;
 }
 
 html {
@@ -83,6 +88,10 @@ p {
     color: var(--text);
     transition: var(--transition);
 }
+.nav-link:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
 .nav-link::after {
     content: '';
     position: absolute;
@@ -112,6 +121,14 @@ p {
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 }
+
+@media (min-width: var(--breakpoint-md)) {
+    .navbar-nav {
+      background-color: transparent;
+      padding: 0;
+      box-shadow: none;
+    }
+  }
 
 /* Improved form styles */
 .form-control {
