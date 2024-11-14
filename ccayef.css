@@ -489,8 +489,70 @@
             margin-top: 10px;
         }
 
+/**************Projects page********/
+
+/* Project Grid */
+.project-grid {
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+/* Project Card Styles */
+.project-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project-card .card-body {
+    padding: 20px;
+}
+
+.project-card .card-title {
+    font-size: 1.25rem;
+    color: var(--primary);
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.project-card .card-text {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.project-card .card-text i {
+    color: var(--primary);
+    margin-right: 8px;
+}
+
+/* Responsive Layout for Large Screens */
+@media (min-width: 992px) {
+    .project-card {
+        flex: 1 1 45%; /* Two cards per row */
+    }
+}
+
+/* Responsive Layout for Extra Large Screens */
+ @media (min-width: 1200px) {
+    .project-card {
+        flex: 1 1 45%; /* One card per row */
+    }
+} 
 
     /*Contact Us Page*/
+.contact-section {
+    padding: 0;
+}
 
     .contact-form {
         padding: 20px;
@@ -723,7 +785,7 @@
 
 
 
-    .overlay {
+        .hero-section .carousel-item .overlay {
         position: absolute;
         top: 0;
         left: 0;

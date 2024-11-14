@@ -287,7 +287,20 @@ function getFileIcon(extension) {
         default: return 'icons/file-icon.png';
     }
 }
+function toggleAccordionItems() {
+    const accordionItems = document.querySelectorAll('.accordion-collapse');
+    if (window.innerWidth >= 992) {
+        accordionItems.forEach(item => item.classList.add('show'));
+    } else {
+        accordionItems.forEach(item => item.classList.remove('show'));
+    }
+}
 
+// Run on initial load
+toggleAccordionItems();
+
+// Run on window resize
+window.addEventListener('resize', toggleAccordionItems);
 
 
 
