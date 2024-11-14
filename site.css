@@ -120,27 +120,51 @@ p {
 .navbar {
     top: 0;
     padding: 0;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: transparent;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.5s ease;
+    transition: background-color 0.3s ease;
 }
 
+.navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled .nav-link {
+    color: var(--gray-dark);
+}
+
+.navbar.scrolled .nav-link.active {
+    color: var(--gray-dark);
+}
+
+.navbar.scrolled .navbar-brand {
+    color: var(--gray-dark) !important;
+}
+
+.navbar .container{
+    margin: 0;
+    width: 100%;
+}
+
+
+
 .navbar-brand {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--primary);
 }
 
 .navbar-img {
-    height: 60px;
-    margin-right: 1rem;
+    height: 50px;
+    margin-right: 0.5rem;
 }
 
 .nav-link {
     position: relative;
     margin-right: 10px;
     font-weight: 500;
-    color: var(--text);
+    color: white;
     transition: var(--transition);
 }
 .nav-link:focus-visible {
@@ -164,7 +188,7 @@ p {
 }
 .nav-link:hover,
 .nav-link.active {
-    color: var(--primary);
+    color: white !important;
 }
 
 @media (max-width: 767px) {

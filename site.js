@@ -97,6 +97,23 @@ function observeDocumentContainer(type) {
         subtree: true,
     });
 }
+
+function observeAccordionContainer() {
+    const observer = new MutationObserver((mutationsList, observer) => {
+        const accordionContainer = document.querySelector('.accordion');
+        if (accordionContainer) {
+            toggleAccordionItems(); // Adjust accordion items based on screen size
+            observer.disconnect(); // Stop observing once adjustments are made
+        }
+    });
+
+    // Observe the #content container for any new children (such as dynamically loaded accordion)
+    observer.observe(document.getElementById('content'), {
+        childList: true,
+        subtree: true,
+    });
+}
+
 // Function to load page content
 async function loadPage(pageId) {
     console.log('Loading page:', pageId);
@@ -128,6 +145,15 @@ async function loadPage(pageId) {
 
             // Reinitialize plugins
             initializePlugins();
+
+            // Specifically initialize carousel for home page
+            if (pageId === 'home') {
+                initializeHomeCarousel();
+            }
+
+            // if (pageId === 'services') {
+            //     observeAccordionContainer(); // Start observing accordion items on the services page
+            // }
         }, 200);
 
         // Update active navigation and page title
@@ -140,6 +166,9 @@ async function loadPage(pageId) {
         if (pageId === 'resources') {
             observeDocumentContainer('publications');
             observeDocumentContainer('reports');
+        }
+        if (pageId === 'services') {
+            observeAccordionContainer(); // Start observing accordion items on the services page
         }
     } catch (error) {
         console.error('Error loading page:', error);
@@ -179,6 +208,46 @@ function initializePlugins() {
             mirror: false
         });
     }
+     // Initialize Bootstrap carousel with autoplay
+     const heroCarousel = document.getElementById('heroCarousel');
+     if (heroCarousel) {
+         const carousel = new bootstrap.Carousel(heroCarousel, {
+             interval: 5000, // Set autoplay interval (5 seconds)
+             ride: 'carousel',
+             wrap: true
+         });
+         
+         // Force start the carousel
+         carousel.cycle();
+
+         // Add zoom effect handling
+        heroCarousel.addEventListener('slid.bs.carousel', function() {
+            // Remove zoom from all images
+            const allImages = this.querySelectorAll('.carousel-item img');
+            allImages.forEach(img => {
+                img.style.transform = 'scale(1)';
+                img.style.transition = 'transform 3s ease-in-out';
+            });
+            
+            // Add zoom to active image
+            const activeImage = this.querySelector('.carousel-item.active img');
+            if (activeImage) {
+                // Small delay to ensure smooth transition
+                setTimeout(() => {
+                    activeImage.style.transform = 'scale(1.1)';
+                }, 50);
+            }
+        });
+        
+        // Initialize zoom for the first active image
+        const firstActiveImage = heroCarousel.querySelector('.carousel-item.active img');
+        if (firstActiveImage) {
+            setTimeout(() => {
+                firstActiveImage.style.transform = 'scale(1.1)';
+            }, 50);
+        }
+    
+    }
     
     // Initialize Swiper if present
     if (typeof Swiper !== 'undefined') {
@@ -213,6 +282,27 @@ function initializePlugins() {
                 el: '.swiper-scrollbar',
             },
         });
+    }
+}
+
+// Add this function to explicitly initialize the carousel when the home page loads
+function initializeHomeCarousel() {
+    const heroCarousel = document.getElementById('heroCarousel');
+    if (heroCarousel) {
+        const carousel = new bootstrap.Carousel(heroCarousel, {
+            interval: 5000,
+            ride: 'carousel',
+            wrap: true
+        });
+
+        // Initialize zoom for the first active image
+        const firstActiveImage = heroCarousel.querySelector('.carousel-item.active img');
+        if (firstActiveImage) {
+            setTimeout(() => {
+                firstActiveImage.style.transform = 'scale(1.1)';
+            }, 50);
+        }
+        carousel.cycle();
     }
 }
 
@@ -287,6 +377,7 @@ function getFileIcon(extension) {
         default: return 'icons/file-icon.png';
     }
 }
+
 function toggleAccordionItems() {
     const accordionItems = document.querySelectorAll('.accordion-collapse');
     if (window.innerWidth >= 992) {
@@ -295,13 +386,6 @@ function toggleAccordionItems() {
         accordionItems.forEach(item => item.classList.remove('show'));
     }
 }
-
-// Run on initial load
-toggleAccordionItems();
-
-// Run on window resize
-window.addEventListener('resize', toggleAccordionItems);
-
 
 
 // Initialize when document is ready
@@ -326,7 +410,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    
+    window.addEventListener('resize', toggleAccordionItems);
+
+    /* Add scroll transition JavaScript */
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
 
     // Handle browser back/forward
     window.addEventListener('popstate', (e) => {
