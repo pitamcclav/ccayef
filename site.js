@@ -8,62 +8,62 @@ const pages = {
     },
     'about': {
         id: 'about',
-        path: 'Home/About.html',
+        path: ' Home/About.html',
         title: 'About Us'
     },
     'services': {
         id: 'services',
-        path: 'Home/Services.html',
+        path: ' Home/Services.html',
         title: 'Services'
     },
     'projects': {
         id: 'projects',
-        path: 'Home/Projects.html',
+        path: ' Home/Projects.html',
         title: 'Projects'
     },
     'media': {
         id: 'media',
-        path: 'Home/Media.html',
+        path: ' Home/Media.html',
         title: 'Media'
     },
     'resources': {
         id: 'resources',
-        path: 'Home/Publications.html',
+        path: ' Home/Publications.html',
         title: 'Resources'
     },
     'contact': {
         id: 'contact',
-        path: 'Home/Contact.html',
+        path: ' Home/Contact.html',
         title: 'Contact'
     },
     'earlyChildhoodDev': {
         id: 'earlyChildhood',
-        path: 'Services/EarlyChildhoodDev.html',
+        path: ' Services/EarlyChildhoodDev.html',
         title: 'Early Childhood'
     },
     'healthServices': {
         id: 'healthServices',
-        path: 'Services/HealthServices.html',
+        path: ' Services/HealthServices.html',
         title: 'Health Services'
     },
     'teenageMotherRehab': {
         id: 'teenageMotherRehab',
-        path: 'Services/TeenageMotherRehab.html',
+        path: ' Services/TeenageMotherRehab.html',
         title: 'Teenage Mother Rehabilitation'
     },
     'vocationalTraining': {
         id: 'vocationalTraining',
-        path: 'Services/VocationalTraining.html',
+        path: ' Services/VocationalTraining.html',
         title: 'Vocational Training'
     },
     'youthEmpowerment': {
         id: 'youthEmpowerment',
-        path: 'Services/YouthEmpowerment.html',
+        path: ' Services/YouthEmpowerment.html',
         title: 'Youth Empowerment'
     },
     'WASHandClimateChange': {
         id: 'WASHandClimateChange',
-        path: 'Services/WASHandClimateChange.html',
+        path: ' Services/WASHandClimateChange.html',
         title: 'WASH and Climate Change'
     },
 };
@@ -333,7 +333,7 @@ function loadImages() {
                 swiperSlide.classList.add('swiper-slide');
                 swiperSlide.innerHTML = `
                 <div class="gallery-item">
-                    <img src="public/images/gallery/${image}" class="img-fluid rounded" alt="Gallery Image">
+                    <img src="images/gallery/${image}" class="img-fluid rounded" alt="Gallery Image">
                 </div>`;
                 galleryContainer.appendChild(swiperSlide);
             });
@@ -380,9 +380,9 @@ async function loadDocuments(type) {
 
 function getFileIcon(extension) {
     switch (extension) {
-        case '.pdf': return 'public/images/icons/pdf.png';
-        case '.doc': case '.docx': return 'public/images/icons/word.png';
-        case '.xls': case '.xlsx': return 'public/images/icons/excel.png';
+        case '.pdf': return 'images/icons/pdf.png';
+        case '.doc': case '.docx': return 'images/icons/word.png';
+        case '.xls': case '.xlsx': return 'images/icons/excel.png';
         default: return 'icons/file-icon.png';
     }
 }

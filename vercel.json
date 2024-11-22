@@ -1,6 +1,11 @@
 {
+    "build": {
+      "command": "vercel-build"
+    },
     "routes": [
-      { "src": "/api/images", "dest": "/api/images.js" },
-      { "src": "/api/documents", "dest": "/api/documents.js" }
+      {
+        "src": "/api/(.*)",
+        "dest": "api//server.js" 
+      }
     ]
   }
