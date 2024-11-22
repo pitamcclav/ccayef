@@ -3,7 +3,7 @@ import path from 'path';
 
 export default function handler(req, res) {
     const { type } = req.query; // Use query parameters for dynamic routing
-    const docPath = path.join(process.cwd(), 'docs', type);
+    const docPath = path.join(process.cwd(), 'public/docs', type);
 
     fs.readdir(docPath, (err, files) => {
         if (err) {
@@ -11,7 +11,7 @@ export default function handler(req, res) {
         }
         const fileList = files.map(file => ({
             name: file,
-            url: `/docs/${type}/${file}`,
+            url: `/public/docs/${type}/${file}`,
             type: path.extname(file).toLowerCase()
         }));
         res.status(200).json(fileList);
