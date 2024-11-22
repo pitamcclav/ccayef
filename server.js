@@ -1,4 +1,5 @@
 // server.js
+require('dotenv').config();
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -7,13 +8,12 @@ const cors = require('cors');
 
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; 
 
 app.use(cors());
 // Serve static files from the "public" directory
-app.use(express.static('images'));
-app.use(express.static('docs'));
-
+app.use(express.static('public/images'));
+app.use(express.static('public/docs'));
 
 // Endpoint to get list of files in 'publications' and 'reports'
 app.get('/documents/:type', (req, res) => {
@@ -52,5 +52,5 @@ app.get('/images', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on ${process.env.BASE_URL}`);
 });

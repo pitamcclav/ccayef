@@ -1,4 +1,5 @@
-﻿// Configuration object for pages
+﻿
+// Configuration object for pages
 const pages = {
     'home': {
         id: 'home',
@@ -306,37 +307,45 @@ function initializeHomeCarousel() {
     }
 }
 
-function loadImages(){
+function getApiUrl(endpoint) {
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return `http://localhost:3000/${endpoint}`;
+    } else {
+        return `/api/${endpoint}`;
+    }
+}
+
+
+
+function loadImages() {
     const galleryContainer = document.getElementById('gallery-container');
-    if (!galleryContainer){
+    if (!galleryContainer) {
         console.error('Gallery container not found');
         return;
     }
     if (galleryContainer.children.length > 0) return; // Prevent re-adding images
 
-    fetch('http://localhost:3000/images')
+    fetch(getApiUrl('images')) // Use the utility function here
+        .then(response => response.json())
+        .then(images => {
+            images.forEach(image => {
+                const swiperSlide = document.createElement('div');
+                swiperSlide.classList.add('swiper-slide');
+                swiperSlide.innerHTML = `
+                <div class="gallery-item">
+                    <img src="public/images/gallery/${image}" class="img-fluid rounded" alt="Gallery Image">
+                </div>`;
+                galleryContainer.appendChild(swiperSlide);
+            });
 
-    .then(response => response.json())
-    .then(images => {
-        images.forEach(image => {
-            const swiperSlide = document.createElement('div'); 
-            swiperSlide.classList.add('swiper-slide'); 
-            swiperSlide.innerHTML = ` 
-            <div class="gallery-item"> 
-            <img src="images/gallery/${image}" class="img-fluid rounded" alt="Gallery Image"> 
-            </div> `; 
-            galleryContainer.appendChild(swiperSlide);
-        });
-
-        initializePlugins(); // Reinitialize Swiper after adding images
-    })
-    .catch(error => console.error('Error loading images:', error));
+            initializePlugins(); // Reinitialize Swiper after adding images
+        })
+        .catch(error => console.error('Error loading images:', error));
 }
-
 
 async function loadDocuments(type) {
     try {
-        const response = await fetch(`http://localhost:3000/documents/${type}`);
+        const response = await fetch(getApiUrl(`documents/${type}`)); // Use the utility function here
         const documents = await response.json();
 
         const container = document.querySelector(`.${type} .row`);
@@ -371,9 +380,9 @@ async function loadDocuments(type) {
 
 function getFileIcon(extension) {
     switch (extension) {
-        case '.pdf': return 'images/icons/pdf.png';
-        case '.doc': case '.docx': return 'images/icons/word.png';
-        case '.xls': case '.xlsx': return 'images/icons/excel.png';
+        case '.pdf': return 'public/images/icons/pdf.png';
+        case '.doc': case '.docx': return 'public/images/icons/word.png';
+        case '.xls': case '.xlsx': return 'public/images/icons/excel.png';
         default: return 'icons/file-icon.png';
     }
 }
@@ -390,7 +399,7 @@ function toggleAccordionItems() {
 
 // Initialize when document is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded');   
+    console.log('DOM Content Loaded');  
     
     // Add smooth transition styling
     const style = document.createElement('style');
