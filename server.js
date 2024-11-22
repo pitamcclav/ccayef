@@ -18,7 +18,7 @@ app.use(express.static('docs'));
 // Endpoint to get list of files in 'publications' and 'reports'
 app.get('/documents/:type', (req, res) => {
     const docType = req.params.type;
-    const docPath = path.join(__dirname, 'docs', docType);
+    const docPath = path.join(__dirname, 'public/docs', docType);
 
     fs.readdir(docPath, (err, files) => {
         if (err) {
@@ -26,7 +26,7 @@ app.get('/documents/:type', (req, res) => {
         }
         const fileList = files.map(file => ({
             name: file,
-            url: `/docs/${docType}/${file}`,
+            url: `/public/docs/${docType}/${file}`,
             type: path.extname(file).toLowerCase() // File extension for icons
         }));
         res.json(fileList);
@@ -39,7 +39,7 @@ app.get('/documents/:type', (req, res) => {
 
 // Endpoint to get image filenames
 app.get('/images', (req, res) => {
-    const galleryDir = path.join(__dirname, 'images/gallery');
+    const galleryDir = path.join(__dirname, 'public/images/gallery');
     fs.readdir(galleryDir, (err, files) => {
         if (err) {
             return res.status(500).send('Unable to scan directory');
