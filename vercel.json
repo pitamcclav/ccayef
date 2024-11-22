@@ -1,0 +1,6 @@
+{
+    "routes": [
+      { "src": "/api/images", "dest": "/api/images.js" },
+      { "src": "/api/documents", "dest": "/api/documents.js" }
+    ]
+  }
