@@ -118,7 +118,7 @@ function observeAccordionContainer() {
 // Function to load page content
 async function loadPage(pageId) {
     console.log('Loading page:', pageId);
-    
+
     const page = pages[pageId];
     console.log(page);
 
@@ -132,7 +132,7 @@ async function loadPage(pageId) {
     try {
         // Fetch the correct path based on configuration
         const response = await fetch(page.path);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -217,7 +217,7 @@ function initializePlugins() {
              ride: 'carousel',
              wrap: true
          });
-         
+
          // Force start the carousel
          carousel.cycle();
 
@@ -229,7 +229,7 @@ function initializePlugins() {
                 img.style.transform = 'scale(1)';
                 img.style.transition = 'transform 3s ease-in-out';
             });
-            
+
             // Add zoom to active image
             const activeImage = this.querySelector('.carousel-item.active img');
             if (activeImage) {
@@ -239,7 +239,7 @@ function initializePlugins() {
                 }, 50);
             }
         });
-        
+
         // Initialize zoom for the first active image
         const firstActiveImage = heroCarousel.querySelector('.carousel-item.active img');
         if (firstActiveImage) {
@@ -247,9 +247,9 @@ function initializePlugins() {
                 firstActiveImage.style.transform = 'scale(1.1)';
             }, 50);
         }
-    
+
     }
-    
+
     // Initialize Swiper if present
     if (typeof Swiper !== 'undefined') {
         const swiper = new Swiper('.swiper', {
@@ -396,11 +396,26 @@ function toggleAccordionItems() {
     }
 }
 
+function toggleNavbar() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navbarToggle = document.querySelector('.navbar-toggler');
+
+    navLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+            // Check if the navbar toggler is visible and the menu is expanded
+            if (window.getComputedStyle(navbarToggle).display !== 'none' && navbarToggle.classList.contains('collapsed') === false) {
+                navbarToggle.click();
+            }
+        });
+    });
+}
+
+
 
 // Initialize when document is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded');  
-    
+    console.log('DOM Content Loaded');
+
     // Add smooth transition styling
     const style = document.createElement('style');
     style.textContent = `
@@ -409,6 +424,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(style);
+
+    // Initialize navbar toggler
+    toggleNavbar();
+
+    // Page navigation
     document.addEventListener('click', (e) => {
         const link = e.target.closest('[data-page]');
         if (link) {
@@ -431,15 +451,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
+
     // Handle browser back/forward
     window.addEventListener('popstate', (e) => {
         const pageId = e.state?.page || 'home';
         loadPage(pageId);
     });
-    
+
     // Load initial page
     const initialPage = window.location.hash.slice(1) || 'home';
     loadPage(initialPage);
-    
-    
+
+
 });

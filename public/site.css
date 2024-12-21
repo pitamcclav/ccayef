@@ -55,7 +55,7 @@
     border: none !important; /* Remove borders from headers */
     color: var(--bs-accordion-btn-color); /* Set text color */
   }
-  
+
   .accordion-button:not(.collapsed) {
     color: var(--bs-accordion-active-color); /* Change color when active */
     background-color: var(--bs-accordion-active-bg); /* Active background color */
@@ -64,8 +64,8 @@
   .accordion-button:not(.collapsed)::after {
     transform: rotate(180deg); /* Rotate icon when expanded */
   }
-  
-  
+
+
   .accordion-body {
     border-top: none !important; /* Remove top border between header and body */
   }
@@ -135,7 +135,7 @@ p {
 }
 
 .navbar.scrolled .nav-link.active {
-    color: var(--gray-dark);
+    color: black !important;
 }
 
 .navbar.scrolled .navbar-brand {
@@ -194,10 +194,35 @@ p {
 @media (max-width: 767px) {
     .navbar-nav {
 /*        margin-left: 30px;*/
-        background-color: #ffffff;
+        background-color: var(--background);
         padding: 1rem;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-nav .nav-link {
+        color: var(--gray-dark);
+    }
+
+    .navbar-nav .nav-link::after {
+        background-color: var(--gray-dark);
+    }
+    .navbar-nav .nav-link.active {
+        color: var(--primary) !important;
+    }
+
+    .navbar-nav .nav-link:hover::after,
+    .navbar-nav .nav-link.active::after {
+        width: 0;
+    }
+
+    .navbar-toggler {
+        color: var(--gray-dark);
+    }
+
+    .navbar-toggler:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
     }
 }
 
