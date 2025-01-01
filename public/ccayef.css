@@ -898,7 +898,7 @@
     }
 
         .gallery-item:hover img {
-            transform: scale(1.05); /* Slight zoom on hover */
+            transform: scale(1.005); /* Slight zoom on hover */
         }
 
     /* Videos Section */

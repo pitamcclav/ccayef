@@ -359,12 +359,12 @@ async function loadDocuments(type) {
             const docIcon = getFileIcon(doc.type); // Function to select icon
 
             const cardHTML = `
-                <div class="col-lg-4">
+                <div class="col-lg-4 my-3">
                     <div class="card" style="align-items:center;">
                         <img src="${docIcon}" alt="${doc.name}" class="card-img-top" 
                         style="width:40%; box-shadow:none; object-fit:cover; padding:20px;">
                         <div class="card-body">
-                            <h4>${doc.name}</h4>
+                            <h6>${doc.name}</h6>
                             <a href="${doc.url}" class="btn btn-primary" download>Download</a>
                         </div>
                     </div>
@@ -410,6 +410,23 @@ function toggleNavbar() {
     });
 }
 
+function sendEmail(){
+    const form = document.getElementById('volunteerForm');
+    form.addEventListener('submit', function (event){
+        event.preventDefault();
+        emailjs.send('service_enz5mri','template_nqxqm57',{
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        }).then(function (response){
+            document.getElementById('status').innerText = 'Message sent successfully!';
+        },function (error){
+            document.getElementById('status').innerText = 'Failed to send message'
+            console.error('Error', error)
+        })
+    })
+}
+
 
 
 // Initialize when document is ready
@@ -427,6 +444,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize navbar toggler
     toggleNavbar();
+
+
 
     // Page navigation
     document.addEventListener('click', (e) => {
@@ -462,6 +481,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load initial page
     const initialPage = window.location.hash.slice(1) || 'home';
     loadPage(initialPage);
-
+    if (document.getElementById('volunteerForm')) {
+        sendEmail();
+    }
 
 });
